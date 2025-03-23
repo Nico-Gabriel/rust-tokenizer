@@ -1,14 +1,29 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+use models::bpe::BPE;
+use tokenizer::Tokenizer;
+
+pub mod models;
+pub mod tokenizer;
+
+fn main() {
+	let mut tokenizer = Tokenizer::new(BPE::new());
+	tokenizer.train("Hello, world!");
+	tokenizer.save("bpe.json");
+	tokenizer.load("bpe.json");
+	let result = tokenizer.tokenize("Hello, world!");
+	println!("{:?}", result.tokens);
+	println!("{:?}", result.ids);
 }
 
 #[cfg(test)]
 mod tests {
-    use super::*;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
+	#[test]
+	fn test_simple_tokenizer() {
+		todo!("implement simple tokenizer tests");
+	}
+
+	#[test]
+	fn test_bpe_tokenizer() {
+		todo!("implement bpe tokenizer tests");
+	}
 }
